@@ -2,9 +2,9 @@ var GameObject = function(){
   //setup private variables
   this._image =-1;
 
-  this._$node = $('<img src =""></img>');
-  this._$node.style.position = 'absolute';
+  this.$_node = $('<img src ="">');
 
+  $('body').append(this.$_node);
   //setup public variables
   this.images = [];
 
@@ -28,15 +28,17 @@ GameObject.prototype._Update = function(){
   }
 
   //Update DOM
+  var buffer=Math.floor(this.position.y-this.$_node.height/2) + 'px';
+  this.$_node[0].style.top=Math.floor(this.position.y-this.$_node.height()/2) + 'px';
+  this.$_node[0].style.left=Math.floor(this.position.x-this.$_node.width()/2) + 'px';
+  this.$_node[0].style.transform='rotate('+this.rotation+'deg)';
+  this.$_node[0].style.position = 'absolute';
   if(this._image===-1){
-    this._$node.style.visibility = 'hidden';
+    this.$_node[0].style.display='hidden';
   } else {
-    this._$node.style.visibility = 'visible';
+    this.$_node[0].style.display='block';
   }
-  this.$node.attr('src',this.images[this._image]);
-  var styleSettings = {left: this.position.x-this.$node.width/2,top: this.position.y-this.$node.height/2};
-  this.$node.css(styleSettings);
-  //TODO: Update Rotation
+  this.$_node.attr('src',this.images[this._image]);
 
   //Schedule the next update
   var that=this;
